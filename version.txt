@@ -1,3 +1,4 @@
+v 1.0.5 => main: Query keys shortened as string
 v 1.0.4 => main: sql formatter can format sql and every query has key like this: -- CREATE_USERS: and LoadSQLFile func renewed for this format that can adapt approrate keys from comment section
 v 1.0.3 => main: Barcha Jadvallar kuzatish va bazilariga row qo'shish mumkin, Claude + fix ChatGPT working
 v 1.0.2 => main: Queries.sql ni key orqali yozilgan va uni o'qish uchun yozilgan maxsus funksiyani LoadSQL.js ichida yozilgan funksiya orqali querylar o'qib olingan
