@@ -1,3 +1,4 @@
+v 1.0.3 => main: Barcha Jadvallar kuzatish va bazilariga row qo'shish mumkin, Claude + fix ChatGPT working
 v 1.0.2 => main: Queries.sql ni key orqali yozilgan va uni o'qish uchun yozilgan maxsus funksiyani LoadSQL.js ichida yozilgan funksiya orqali querylar o'qib olingan
 v 1.0.1 => main: Move queries to SQL file
 v 1.0.0 => main: DS DatabaseSQL init

@@ -1,12 +1,9 @@
 function LoadSQLFile(path, callback) {
-    var file = app.ReadFile(path);
-    var content = file.toString("utf-8");
-
-    // Har bir qatorni parse qilish
+    var content = app.ReadFile(path);
     var lines = content.split("\n");
     for (var i = 0; i < lines.length; i++) {
         var line = lines[i].trim();
-        if (line.length === 0) continue; // bo'sh qatorni o'tkazib yuborish
+        if (!line) continue;
         var sep = line.indexOf(":");
         if (sep !== -1) {
             var key = line.substring(0, sep).trim();
@@ -14,6 +11,5 @@ function LoadSQLFile(path, callback) {
             queries[key] = sql;
         }
     }
-
     if (callback) callback();
 }
