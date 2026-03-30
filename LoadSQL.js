@@ -11,41 +11,50 @@
 // va SQL qatori ham bir nechta line bo'lishi mumkin
 // LoadSQLFile funksiyasi ham yangilandi
 
+// LoadSQL.js
+// v1.0.6
+// Kalit ajratish qoidasi:
+//   -- KEY:   → kalit (oxirida ':' bo'lishi SHART)
+//   -- izoh   → oddiy comment, o'tkazib yuboriladi
+// Yangilik: inline commentlar ham tozalanadi
+//   masalan: "phone TEXT, -- izoh" → "phone TEXT,"
 
 function LoadSQLFile(path, callback) {
     var content = app.ReadFile(path);
-    // Windows \r\n ni ham handle qilish
     content = content.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
 
-    var lines = content.split("\n");
+    var lines      = content.split("\n");
     var currentKey = null;
     var currentSQL = [];
 
     for (var i = 0; i < lines.length; i++) {
-        var line = lines[i];
-        var trimmed = line.trim();
+        var trimmed = lines[i].trim();
 
-        // -- KEY: formatdagi comment → yangi kalit
-        if (trimmed.match(/^--\s*\w+:/)) {
-            // Oldingi kalitni saqlash
-            if (currentKey !== null) {
+        // Faqat "-- WORD:" shaklida kalit comment
+        if (trimmed.match(/^--\s*\w+\s*:/)) {
+            if (currentKey !== null && currentSQL.length > 0) {
                 queries[currentKey] = currentSQL.join(" ").replace(/\s+/g, " ").trim();
             }
-            // Yangi kalit olish: "-- CREATE_USERS:" → "CREATE_USERS"
             var colonIdx = trimmed.indexOf(":");
             currentKey = trimmed.substring(2, colonIdx).trim();
             currentSQL = [];
 
         } else if (trimmed.startsWith("--")) {
-            // Oddiy comment — o'tkazib yuborish
+            // Qator boshi comment — o'tkazib yuborish
             continue;
 
         } else if (currentKey !== null && trimmed.length > 0) {
-            currentSQL.push(trimmed);
+            // Inline commentni kesib tashlash: "TEXT, -- izoh" → "TEXT,"
+            var inlineIdx = trimmed.indexOf("--");
+            if (inlineIdx !== -1) {
+                trimmed = trimmed.substring(0, inlineIdx).trim();
+            }
+            if (trimmed.length > 0) {
+                currentSQL.push(trimmed);
+            }
         }
     }
 
-    // Oxirgi kalitni saqlash
     if (currentKey !== null && currentSQL.length > 0) {
         queries[currentKey] = currentSQL.join(" ").replace(/\s+/g, " ").trim();
     }

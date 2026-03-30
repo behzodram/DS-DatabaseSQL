@@ -4,21 +4,19 @@ CREATE TABLE IF NOT EXISTS users (
     phone TEXT UNIQUE NOT NULL,
     role TEXT NOT NULL,
     name TEXT,
-    from_region TEXT,       -- faqat driver va shipper uchun
-    to_region TEXT,         -- faqat driver va shipper uchun
-    vehicle_type TEXT,      -- faqat driver va shipper uchun
-    load_id INTEGER,        -- faqat shipper uchun
-
+    from_region TEXT,
+    to_region TEXT,
+    vehicle_type TEXT,
+    load_id INTEGER,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     is_synced BOOLEAN DEFAULT 0,
-
     FOREIGN KEY (load_id) REFERENCES loads(load_id)
-);
+)
 
 -- Indexlar users uchun
-CREATE INDEX IF NOT EXISTS idx_users_phone ON users(phone);
-CREATE INDEX IF NOT EXISTS idx_users_is_synced ON users(is_synced);
+CREATE INDEX IF NOT EXISTS idx_users_phone ON users(phone)
+CREATE INDEX IF NOT EXISTS idx_users_is_synced ON users(is_synced)
 CREATE INDEX IF NOT EXISTS idx_users_updated_at ON users(updated_at)
 
 -- CRT_LOADS:
@@ -32,18 +30,16 @@ CREATE TABLE IF NOT EXISTS loads (
     price TEXT DEFAULT '0',
     completed BOOLEAN DEFAULT 0,
     exp_at DATE NOT NULL,
-
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     is_synced BOOLEAN DEFAULT 0,
-
     FOREIGN KEY (owner_phone) REFERENCES users(phone)
-);
+)
 
--- Indexlar users uchun
-CREATE INDEX IF NOT EXISTS idx_loads_owner_phone ON loads(owner_phone);
-CREATE INDEX IF NOT EXISTS idx_loads_exp_at ON loads(exp_at);
-CREATE INDEX IF NOT EXISTS idx_loads_is_synced ON loads(is_synced);
+-- Indexlar loads uchun
+CREATE INDEX IF NOT EXISTS idx_loads_owner_phone ON loads(owner_phone)
+CREATE INDEX IF NOT EXISTS idx_loads_exp_at ON loads(exp_at)
+CREATE INDEX IF NOT EXISTS idx_loads_is_synced ON loads(is_synced)
 CREATE INDEX IF NOT EXISTS idx_loads_updated_at ON loads(updated_at)
 
 -- CRT_DEALS:
@@ -59,21 +55,19 @@ CREATE TABLE IF NOT EXISTS deals (
     payment_by TEXT,
     payed_status TEXT,
     payment_card TEXT,
-
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     is_synced BOOLEAN DEFAULT 0,
-    
     FOREIGN KEY (load_id) REFERENCES loads(load_id),
     FOREIGN KEY (driver_phone) REFERENCES users(phone),
     FOREIGN KEY (shipper_phone) REFERENCES users(phone)
-);
+)
 
--- Indexlar users uchun
-CREATE INDEX IF NOT EXISTS idx_deals_load_id ON deals(load_id);
-CREATE INDEX IF NOT EXISTS idx_deals_driver_phone ON deals(driver_phone);
-CREATE INDEX IF NOT EXISTS idx_deals_shipper_phone ON deals(shipper_phone);
-CREATE INDEX IF NOT EXISTS idx_deals_is_synced ON deals(is_synced);
+-- Indexlar deals uchun
+CREATE INDEX IF NOT EXISTS idx_deals_load_id ON deals(load_id)
+CREATE INDEX IF NOT EXISTS idx_deals_driver_phone ON deals(driver_phone)
+CREATE INDEX IF NOT EXISTS idx_deals_shipper_phone ON deals(shipper_phone)
+CREATE INDEX IF NOT EXISTS idx_deals_is_synced ON deals(is_synced)
 CREATE INDEX IF NOT EXISTS idx_deals_updated_at ON deals(updated_at)
 
 -- CRT_CHATS:
@@ -85,12 +79,12 @@ CREATE TABLE IF NOT EXISTS chats (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     is_synced BOOLEAN DEFAULT 0
-);
+)
 
--- Indexlar users uchun
-CREATE INDEX IF NOT EXISTS idx_chats_phone ON chats(phone);
-CREATE INDEX IF NOT EXISTS idx_chats_load_id ON chats(load_id);
-CREATE INDEX IF NOT EXISTS idx_chats_is_synced ON chats(is_synced);
+-- Indexlar chats uchun
+CREATE INDEX IF NOT EXISTS idx_chats_phone ON chats(phone)
+CREATE INDEX IF NOT EXISTS idx_chats_load_id ON chats(load_id)
+CREATE INDEX IF NOT EXISTS idx_chats_is_synced ON chats(is_synced)
 CREATE INDEX IF NOT EXISTS idx_chats_created_at ON chats(created_at)
 
 -- CRT_CONFERENCE:
@@ -102,16 +96,15 @@ CREATE TABLE IF NOT EXISTS conference (
     status TEXT,
     price TEXT,
     description TEXT,
-
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     is_synced BOOLEAN DEFAULT 0
-);
+)
 
--- Indexlar users uchun
-CREATE INDEX IF NOT EXISTS idx_conf_load_id ON conference(load_id);
-CREATE INDEX IF NOT EXISTS idx_conf_driver_phone ON conference(driver_phone);
-CREATE INDEX IF NOT EXISTS idx_conf_shipper_phone ON conference(shipper_phone);
+-- Indexlar conference uchun
+CREATE INDEX IF NOT EXISTS idx_conf_load_id ON conference(load_id)
+CREATE INDEX IF NOT EXISTS idx_conf_driver_phone ON conference(driver_phone)
+CREATE INDEX IF NOT EXISTS idx_conf_shipper_phone ON conference(shipper_phone)
 CREATE INDEX IF NOT EXISTS idx_conf_is_synced ON conference(is_synced)
 
 -- CRT_DRIVER_INTERESTED:
@@ -120,19 +113,17 @@ CREATE TABLE IF NOT EXISTS driver_interested (
     load_id INTEGER NOT NULL,
     price TEXT,
     description TEXT,
-    
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     is_synced BOOLEAN DEFAULT 0,
-
     PRIMARY KEY (driver_phone, load_id),
     FOREIGN KEY (driver_phone) REFERENCES users(phone),
     FOREIGN KEY (load_id) REFERENCES loads(load_id)
-);
+)
 
--- Indexlar users uchun
-CREATE INDEX IF NOT EXISTS idx_di_driver_phone ON driver_interested(driver_phone);
-CREATE INDEX IF NOT EXISTS idx_di_load_id ON driver_interested(load_id);
+-- Indexlar driver_interested uchun
+CREATE INDEX IF NOT EXISTS idx_di_driver_phone ON driver_interested(driver_phone)
+CREATE INDEX IF NOT EXISTS idx_di_load_id ON driver_interested(load_id)
 CREATE INDEX IF NOT EXISTS idx_di_is_synced ON driver_interested(is_synced)
 
 -- DEL_USERS:

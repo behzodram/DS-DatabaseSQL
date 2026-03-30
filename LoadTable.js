@@ -184,10 +184,9 @@ function DisplayTable(tableName) {
 
 // ---------- DROP TABLE ----------
 function DropTable(tableName) {
-    var dropKey = "DROP_" + tableName.toUpperCase();
+    var dropKey = "DEL_" + tableName.toUpperCase();
     var sql = queries[dropKey];
     if (!sql) {
-        // Queries.sql da yo'q bo'lsa ham to'g'ridan DROP qilamiz
         sql = "DROP TABLE IF EXISTS " + tableName;
     }
     db.ExecuteSql(sql, [], function() {
