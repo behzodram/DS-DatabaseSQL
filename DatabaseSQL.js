@@ -1,44 +1,60 @@
 var queries = {};
 var db;
 var currentTable = "users";
+var isTableView = false;
 
 function OnStart() {
     app.SetOrientation("portrait");
 
-    lay = app.CreateLayout("linear", "VCenter,FillXY");
+    // --- Asosiy layout ---
+    layMain = app.CreateLayout("linear", "VCenter,FillXY");
 
+    // --- Tugmalar qatori ---
     layBtns = app.CreateLayout("linear", "Horizontal");
 
-    btnAdd = app.CreateButton("+ Qo'sh", 0.3, 0.09);
-    btnAdd.SetOnTouch(btnAdd_OnTouch);
-    layBtns.AddChild(btnAdd);
+    btnToggle = app.CreateButton("[ App ]", 0.3, 0.09);
+    btnToggle.SetOnTouch(btnToggle_OnTouch);
+    layBtns.AddChild(btnToggle);
 
     btnTables = app.CreateButton("Tables", 0.3, 0.09);
-    btnTables.SetOnTouch(function() { ListAllTables(); });
+    btnTables.SetOnTouch(function() { SwitchToTableView(); ListAllTables(); });
     layBtns.AddChild(btnTables);
 
     btnQueries = app.CreateButton("Queries", 0.3, 0.09);
-    btnQueries.SetOnTouch(function() { ListAllQueries(); });
+    btnQueries.SetOnTouch(function() { SwitchToTableView(); ListAllQueries(); });
     layBtns.AddChild(btnQueries);
 
-    lay.AddChild(layBtns);
+    layMain.AddChild(layBtns);
 
-    web = app.CreateWebView(1, 0.82);
-    web.SetBackColor("#1e1e1e");
-    web.SetOnConsole(function(msg) {
+    // --- App WebView (index.html) ---
+    webApp = app.CreateWebView(1, 0.88);
+    // webApp.SetBackColor("#1e1e1e");
+    webApp.SetOnConsole(function(msg) {
+        if (msg && msg.indexOf("DS_MSG:") === 0) {
+            OnAppMsg(msg.replace("DS_MSG:", ""));
+        }
+    });
+    layMain.AddChild(webApp);
+
+    // --- Table WebView ---
+    webTable = app.CreateWebView(1, 0.82);
+    webTable.SetBackColor("#1e1e1e");
+    webTable.SetOnConsole(function(msg) {
         if (msg && msg.indexOf("DS_MSG:") === 0) {
             OnWebMsg(msg.replace("DS_MSG:", ""));
         }
     });
-    lay.AddChild(web);
+    webTable.SetVisibility("Gone");
+    layMain.AddChild(webTable);
 
-    txtStatus = app.CreateText("Yuklanmoqda...", 0.95, 0.06);
+    // --- Status (faqat table view uchun) ---
+    txtStatus = app.CreateText("", 0.95, 0.06);
     txtStatus.SetTextSize(11);
     txtStatus.SetTextColor("#888888");
-    // txtStatus.SetTextAlignment("Center");
-    lay.AddChild(txtStatus);
+    txtStatus.SetVisibility("Gone");
+    layMain.AddChild(txtStatus);
 
-    app.AddLayout(lay);
+    app.AddLayout(layMain);
 
     app.Script("LoadSQL.js", true);
     app.Script("LoadTable.js", true);
@@ -51,36 +67,42 @@ function OnStart() {
         db.ExecuteSql(queries["CRT_CHATS"]);
         db.ExecuteSql(queries["CRT_CONFERENCE"]);
         db.ExecuteSql(queries["CRT_DRIVER_INTERESTED"]);
-        DisplayTable("users");
-        SetStatus("Tayyor");
+        SwitchToAppView();
     });
 }
 
-function btnAdd_OnTouch() {
-    if (currentTable === "users") {
-        var phone = "+998" + Math.floor(900000000 + Math.random() * 99999999);
-        db.ExecuteSql(
-            "INSERT OR IGNORE INTO users (phone, role, name) VALUES (?,?,?)",
-            [phone, "driver", "User_" + Math.floor(Math.random() * 999)]
-        );
-    } else if (currentTable === "loads") {
-        var reg = ["Toshkent","Samarqand","Buxoro","Namangan","Andijon","Farg'ona"];
-        var from = reg[Math.floor(Math.random() * reg.length)];
-        var to   = reg[Math.floor(Math.random() * reg.length)];
-        db.ExecuteSql(
-            "INSERT INTO loads (raw_text, from_loc, to_loc, vehicle_type, owner_phone, exp_at) VALUES (?,?,?,?,?,?)",
-            ["Sinov yuk " + from + " -> " + to, from, to, "TENT FURA", "+99890000000", "2025-12-31"]
-        );
-    } else if (currentTable === "deals") {
-        db.ExecuteSql(
-            "INSERT INTO deals (load_id, driver_phone, shipper_phone, status) VALUES (?,?,?,?)",
-            [1, "+99890000001", "+99890000002", "pending"]
-        );
+// --- View switching ---
+
+function SwitchToAppView() {
+    isTableView = false;
+    webApp.SetVisibility("Visible");
+    webTable.SetVisibility("Gone");
+    txtStatus.SetVisibility("Gone");
+    btnToggle.SetText("[ Tables ]");
+    webApp.LoadUrl("index.html");
+}
+
+function SwitchToTableView() {
+    isTableView = true;
+    webApp.SetVisibility("Gone");
+    webTable.SetVisibility("Visible");
+    txtStatus.SetVisibility("Visible");
+    btnToggle.SetText("[ App ]");
+    web = webTable;
+}
+
+function btnToggle_OnTouch() {
+    if (isTableView) {
+        SwitchToAppView();
     } else {
-        app.ShowPopup("Bu table uchun qo'shish sozlanmagan");
-        return;
+        SwitchToTableView();
+        ListAllTables();
     }
-    DisplayTable(currentTable);
+}
+
+// --- index.html dan kelgan xabarlar ---
+function OnAppMsg(msg) {
+    // keyingi bosqichda to'ldiriladi
 }
 
 function SetStatus(msg) {
