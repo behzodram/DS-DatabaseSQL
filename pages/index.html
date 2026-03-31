@@ -6,79 +6,53 @@
     <title>SQL Control Panel</title>
     <script src="ds:/Sys/app.js"></script>
     <script src="pages.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            background-color: #f0f0f0;
-        }
-        button {
-            display: block;
-            margin: 10px 0;
-            padding: 12px;
-            font-size: 16px;
-            width: 100%;
-            max-width: 300px;
-        }
-        input {
-            margin: 5px 0;
-            padding: 8px;
-            font-size: 16px;
-            width: 100%;
-            max-width: 300px;
-        }
-        .section {
-            margin-bottom: 30px;
-            padding: 15px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 6px rgba(0,0,0,0.1);
-        }
-        h3 {
-            margin-top: 0;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body onload="app.Start()">
 
+    <div id="toast"></div>
+
     <div class="section">
-        <h3>INSERT USER</h3>
-        <input id="phoneInput" type="text" placeholder="Phone (+998900000000)">
-        <input id="roleInput" type="text" placeholder="Role (admin/user)">
-        <button onclick="INSERT_USER_PHONE_ROLE_(document.getElementById('phoneInput').value, document.getElementById('roleInput').value)">
-            Add User
-        </button>
+        <h3>Insert User</h3>
+        <input id="phoneInput" type="tel" placeholder="Phone (+998900000000)">
+        <input id="roleInput" type="text" placeholder="Role (admin / driver / shipper)">
+        <button class="btn-primary" onclick="INSERT_USER_PHONE_ROLE_(
+            document.getElementById('phoneInput').value,
+            document.getElementById('roleInput').value
+        )">Add User</button>
     </div>
 
     <div class="section">
-        <h3>UPDATE USER NAME</h3>
-        <input id="phoneUpdateName" type="text" placeholder="Phone">
+        <h3>Update User Name</h3>
+        <input id="phoneUpdateName" type="tel" placeholder="Phone">
         <input id="nameInput" type="text" placeholder="New Name">
-        <button onclick="UPDATE_USER_NAME_BY_PHONE_(document.getElementById('phoneUpdateName').value, document.getElementById('nameInput').value)">
-            Update Name
-        </button>
+        <button class="btn-success" onclick="UPDATE_USER_NAME_BY_PHONE_(
+            document.getElementById('phoneUpdateName').value,
+            document.getElementById('nameInput').value
+        )">Update Name</button>
     </div>
 
     <div class="section">
-        <h3>UPDATE USER ROLE</h3>
-        <input id="phoneUpdateRole" type="text" placeholder="Phone">
+        <h3>Update User Role</h3>
+        <input id="phoneUpdateRole" type="tel" placeholder="Phone">
         <input id="roleUpdateInput" type="text" placeholder="New Role">
-        <button onclick="UPDATE_USER_ROLE_BY_PHONE_(document.getElementById('phoneUpdateRole').value, document.getElementById('roleUpdateInput').value)">
-            Update Role
-        </button>
+        <button class="btn-warning" onclick="UPDATE_USER_ROLE_BY_PHONE_(
+            document.getElementById('phoneUpdateRole').value,
+            document.getElementById('roleUpdateInput').value
+        )">Update Role</button>
     </div>
 
     <div class="section">
-        <h3>INSERT LOAD</h3>
-        <button onclick="INSERT_Load_RAW_FROM_TO_VEHICLE_OWNPhone_EXP_()">
+        <h3>Insert Load</h3>
+        <button class="btn-success" onclick="INSERT_Load_RAW_FROM_TO_VEHICLE_OWNPhone_EXP_()">
             Add Random Load
         </button>
     </div>
 
     <div class="section">
-        <h3>INSERT DEAL</h3>
-        <button onclick="INSERT_Deal_LoadID_DRWPhone_ShipPhone_STATUS_()">
+        <h3>Insert Deal</h3>
+        <button class="btn-primary" onclick="INSERT_Deal_LoadID_DRWPhone_ShipPhone_STATUS_()">
             Add Deal
         </button>
     </div>

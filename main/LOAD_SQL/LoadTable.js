@@ -19,6 +19,7 @@ function GetTableCSS() {
         ".btn { border:none; padding:4px 10px; border-radius:8px; font-size:12px; cursor:pointer; font-family:monospace; margin:2px; }",
         ".btn-view { background:#1a3a2a; color:#4caf50; border:1px solid #4caf50; }",
         ".btn-drop { background:#3a1a1a; color:#f44336; border:1px solid #f44336; }",
+        ".btn-create { background:#1a2a3a; color:#64b5f6; border:1px solid #64b5f6; }",
         ".btn-run  { background:#1a2a3a; color:#64b5f6; border:1px solid #64b5f6; }",
         ".sel-row  { background:#2f3a2f !important; outline:1px solid #4caf50; }",
         ".qkey { color:#FFD700; }",
@@ -47,6 +48,9 @@ function GetMsgScript() {
         "function dropTable(name) {",
         "  sendMsg('drop:' + name);",
         "}",
+        "function createTable(name) {",
+        "  sendMsg('create:' + name);",
+        "}",
         "function runQuery(key) {",
         "  sendMsg('run:' + key);",
         "}",
@@ -72,67 +76,55 @@ function OnWebMsg(msg) {
         DisplayTable(param);
     } else if (action === "drop") {
         DropTable(param);
+    } else if (action === "create") {
+        CreateTable(param);
     } else if (action === "run") {
         RunQuery(param);
     }
 }
 
+// ---------- CORE TABLES LIST ----------
+var CORE_TABLES = ["users", "loads", "deals", "chats", "conference", "driver_interested"];
+
 // ---------- TABLES LIST ----------
 function ListAllTables() {
     SetStatus("Tablelar ro'yxati...");
     db.ExecuteSql(queries["LIST_TABLES"], [], function(results) {
+        var existingTables = {};
+        for (var i = 0; i < results.rows.length; i++) {
+            existingTables[results.rows.item(i).name] = true;
+        }
+
         var html = BuildHtmlHead();
         html += "<h3>[ sqlite_master ]</h3>";
-        html += "<table><thead><tr><th>#</th><th>Table</th><th>Ko'rish</th><th>O'chirish</th></tr></thead><tbody>";
+        html += "<table><thead><tr><th>#</th><th>Table</th><th>See</th><th>O'chirish</th></tr></thead><tbody>";
 
-        if (results.rows.length === 0) {
-            html += "<tr><td colspan='4' class='empty'>— bo'sh —</td></tr>";
-        } else {
-            for (var i = 0; i < results.rows.length; i++) {
-                var tn = results.rows.item(i).name;
-                html += "<tr class='tbl-row' id='row_" + tn + "'>";
-                html += "<td>" + (i + 1) + "</td>";
-                html += "<td>" + tn + "</td>";
-                html += "<td><button class='btn btn-view' onclick='selectTable(\"" + tn + "\")'>Ko'rish</button></td>";
+        for (var i = 0; i < CORE_TABLES.length; i++) {
+            var tn = CORE_TABLES[i];
+            var exists = existingTables[tn] ? true : false;
+            var status = exists ? "✓" : "✗";
+            var rowStyle = !exists ? " style='opacity:0.6'" : "";
+
+            html += "<tr class='tbl-row' id='row_" + tn + "'" + rowStyle + ">";
+            html += "<td>" + (i + 1) + "</td>";
+            html += "<td>" + tn + " " + status + "</td>";
+
+            if (exists) {
+                html += "<td><button class='btn btn-view' onclick='selectTable(\"" + tn + "\")'>See</button></td>";
                 html += "<td><button class='btn btn-drop' onclick='dropTable(\"" + tn + "\")'>Drop</button></td>";
-                html += "</tr>";
+            } else {
+                html += "<td>—</td>";
+                html += "<td><button class='btn btn-create' onclick='createTable(\"" + tn + "\")'>Create</button></td>";
             }
+            html += "</tr>";
         }
+
         html += "</tbody></table>";
-        html += "<div class='footer'>" + results.rows.length + " ta table</div>";
+        html += "<div class='footer'>" + CORE_TABLES.length + " ta table</div>";
         html += "</body></html>";
         web.LoadHtml(html);
-        SetStatus(results.rows.length + " ta table");
+        SetStatus(CORE_TABLES.length + " ta table");
     });
-}
-
-// ---------- QUERY LIST ----------
-function ListAllQueries() {
-    SetStatus("Querylar ro'yxati...");
-    var html = BuildHtmlHead();
-    html += "<h3>[ Queries ]</h3>";
-    html += "<table><thead><tr><th>#</th><th>Key</th><th>Tur</th><th>SQL</th><th>Run</th></tr></thead><tbody>";
-
-    var keys = [];
-    for (var k in queries) keys.push(k);
-
-    for (var i = 0; i < keys.length; i++) {
-        var key = keys[i];
-        var sql = queries[key];
-        html += "<tr>";
-        html += "<td>" + (i + 1) + "</td>";
-        html += "<td class='qkey'>" + key + "</td>";
-        html += "<td>" + GetQueryTag(sql) + "</td>";
-        html += "<td><span class='qsql' title='" + sql.replace(/'/g, "&#39;") + "'>" + sql + "</span></td>";
-        html += "<td><button class='btn btn-run' onclick='runQuery(\"" + key + "\")'>Run</button></td>";
-        html += "</tr>";
-    }
-
-    html += "</tbody></table>";
-    html += "<div class='footer'>" + keys.length + " ta query</div>";
-    html += "</body></html>";
-    web.LoadHtml(html);
-    SetStatus(keys.length + " ta query");
 }
 
 // ---------- DISPLAY TABLE ----------
@@ -191,6 +183,20 @@ function DropTable(tableName) {
     }
     db.ExecuteSql(sql, [], function() {
         SetStatus(tableName + " o'chirildi");
+        ListAllTables();
+    });
+}
+
+// ---------- CREATE TABLE ----------
+function CreateTable(tableName) {
+    var createKey = "CRT_" + tableName.toUpperCase();
+    var sql = queries[createKey];
+    if (!sql) {
+        SetStatus("CREATE query topilmadi: " + createKey);
+        return;
+    }
+    db.ExecuteSql(sql, [], function() {
+        SetStatus(tableName + " yaratildi");
         ListAllTables();
     });
 }

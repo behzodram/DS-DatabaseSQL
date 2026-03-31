@@ -20,10 +20,6 @@ function OnStart() {
     btnTables.SetOnTouch(function() { SwitchToTableView(); ListAllTables(); });
     layBtns.AddChild(btnTables);
 
-    btnQueries = app.CreateButton("Queries", 0.3, 0.09);
-    btnQueries.SetOnTouch(function() { SwitchToTableView(); ListAllQueries(); });
-    layBtns.AddChild(btnQueries);
-
     layMain.AddChild(layBtns);
 
     // --- App WebView (index.html) ---
