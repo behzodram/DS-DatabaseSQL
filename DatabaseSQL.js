@@ -12,19 +12,6 @@ function OnStart() {
     // --- Asosiy layout ---
     layMain = app.CreateLayout("linear", "VCenter,FillXY");
 
-    // --- Tugmalar qatori ---
-    // layBtns = app.CreateLayout("linear", "Horizontal");
-
-    // btnToggle = app.CreateButton("[ App ]", 0.3, 0.09);
-    // btnToggle.SetOnTouch(btnToggle_OnTouch);
-    // layBtns.AddChild(btnToggle);
-
-    // btnTables = app.CreateButton("Tables", 0.3, 0.09);
-    // btnTables.SetOnTouch(function() { SwitchToTableView(); ListAllTables(); });
-    // layBtns.AddChild(btnTables);
-
-    // layMain.AddChild(layBtns);
-
     // --- App WebView (index.html) ---
     webApp = app.CreateWebView(1, 1);
     // webApp.SetBackColor("#1e1e1e");
@@ -83,7 +70,6 @@ function SwitchToAppView() {
     webApp.SetVisibility("Visible");
     webTable.SetVisibility("Gone");
     txtStatus.SetVisibility("Gone");
-    // btnToggle.SetText("[ Tables ]");
     webApp.LoadUrl("pages/index.html");
 }
 
@@ -92,13 +78,8 @@ function SwitchToTableView() {
     webApp.SetVisibility("Gone");
     webTable.SetVisibility("Visible");
     txtStatus.SetVisibility("Visible");
-    // btnToggle.SetText("[ App ]");
     web = webTable;
 }
-
-// function btnToggle_OnTouch() {
-    
-// }
 
 // --- index.html dan kelgan xabarlar ---
 function OnAppMsg(msg) {
@@ -111,17 +92,13 @@ function SetStatus(msg) {
 
 
 function initBIO() {
-    setInterval( btn_OnTouch, 300 )
+    setInterval( bio.BeginAuth( bio_OnAuth ) , 1000 )
 
     bio = app.CreateBiometric()
     if(!bio.IsHardwareDetected())
         app.Quit( "Your device not have fingerprint hardware.", "Sorry");
     if(!bio.HasEnrolledFingerprints())
         app.Quit( "Please, first enroll your finger on biometric/security settings on your device.", "Fingerprint not enrolled" )
-}
-
-function btn_OnTouch() {
-  bio.BeginAuth( bio_OnAuth )
 }
 
 function bio_OnAuth(type, message) {

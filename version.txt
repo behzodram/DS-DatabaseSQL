@@ -1,3 +1,4 @@
+v 1.1.1 => main: LoadTable js dan RunQuery func removed, removed all btn from main.js code
 v 1.1.0 => main: Barcha DS buttonlar biometrik bilan almashtirildi
 v 1.0.9 => main: Queries button Removed, Tables UI new -> see, Drop, Create, Table
 v 1.0.8 => main: ReadME.md tree yangilandi (ko'p fayllar qayta tartiblandi), LoadSQL.js v1.0.7 izoh yozildi, pages yangi folder qo'shildi, index.html uchun pages.js bor va undagi DS function lar index.html ichida foydalaniladi.
