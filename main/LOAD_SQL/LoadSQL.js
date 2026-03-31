@@ -19,8 +19,22 @@
 // Yangilik: inline commentlar ham tozalanadi
 //   masalan: "phone TEXT, -- izoh" → "phone TEXT,"
 
-function LoadSQLFile(path, callback) {
-    var content = app.ReadFile(path);
+// v 1.0.7
+// LoadSQLFILE avval 
+//      1.app.ReadFile
+//      2.app.FileExists
+// qilardi, endi esa bu tekshiruvlar tashqarida amalga oshiriladi
+// va LoadSQLFile faqat o'qish va parsing bilan shug'ullanadi
+// Sababi APK building dan keyin ERROR berar edi shunday qilinmasa
+
+function LoadSQLFile(hasfile, content, callback) {
+    
+    if (!hasfile) {
+        console.log("File not found: " + path);
+        if (callback) callback();
+        return;
+    }
+    // var content = app.ReadFile(path);
     content = content.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
 
     var lines      = content.split("\n");

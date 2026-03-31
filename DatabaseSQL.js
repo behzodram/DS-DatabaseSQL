@@ -56,10 +56,16 @@ function OnStart() {
 
     app.AddLayout(layMain);
 
-    app.Script("LoadSQL.js", true);
-    app.Script("LoadTable.js", true);
+    app.Script("main/LOAD_SQL/LoadSQL.js", true);
+    app.Script("main/LOAD_SQL/LoadTable.js", true);
+    // app.Script("LoadSQL.js", true);
+    // app.Script("LoadTable.js", true);
 
-    LoadSQLFile("Queries.sql", function() {
+    let path = "main/SQL/Queries.sql";
+    let content = app.ReadFile(path);
+    let hasfile = app.FileExists(path);
+
+    LoadSQLFile(hasfile, content, function() {
         db = app.OpenDatabase("MyData");
         db.ExecuteSql(queries["CRT_USERS"]);
         db.ExecuteSql(queries["CRT_LOADS"]);
@@ -79,7 +85,7 @@ function SwitchToAppView() {
     webTable.SetVisibility("Gone");
     txtStatus.SetVisibility("Gone");
     btnToggle.SetText("[ Tables ]");
-    webApp.LoadUrl("index.html");
+    webApp.LoadUrl("pages/index.html");
 }
 
 function SwitchToTableView() {
