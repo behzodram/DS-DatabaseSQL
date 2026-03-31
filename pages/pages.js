@@ -52,23 +52,21 @@ function UPDATE_USER_ROLE_BY_PHONE_(phone, role) {
     app.ShowPopup("Foydalanuvchi roli yangilandi!");
 }
 
-function INSERT_Load_RAW_FROM_TO_VEHICLE_OWNPhone_EXP_() {
-    var reg = ["Toshkent","Samarqand","Buxoro","Namangan","Andijon","Farg'ona"];
-    var from = reg[Math.floor(Math.random() * reg.length)];
-    var to   = reg[Math.floor(Math.random() * reg.length)];
-    
+function INSERT_Load_RAW_FROM_TO_VEHICLE_OWNPhone_EXP_(
+    raw, from, to, vehicle, ownphone, exp) {   
     db.ExecuteSql(
         queries["INSERT_Load_RAW_FROM_TO_VEHICLE_OWNPhone_EXP_"],
-        ["Sinov yuk " + from + " -> " + to, from, to, "TENT FURA", "+99890000000", "2025-12-31"]
+        [raw, from, to, vehicle, ownphone, exp]
     );
 
     app.ShowPopup("Yangi yuk qo'shildi!");
 }
 
-function INSERT_Deal_LoadID_DRWPhone_ShipPhone_STATUS_() {
+function INSERT_Deal_LoadID_DRWPhone_ShipPhone_STATUS_(
+    DRWPhone, ShipPhone, STATUS) {
     db.ExecuteSql(
         queries["INSERT_Deal_LoadID_DRWPhone_ShipPhone_STATUS_"],
-        [1, "+99890000001", "+99890000002", "pending"]
+        [DRWPhone, ShipPhone, STATUS]
     );
 
     app.ShowPopup("Yangi deal qo'shildi!");
@@ -111,15 +109,15 @@ function initService() {
      // ===== SERVICE TIME =====  //                                            
     ///////////////////////////////                                             
 
-    // Service bilan bog'lanish                                                 
-    svc = app.CreateService("this", "this", OnServiceReady);                       
-    svc.SetOnMessage(OnServiceMessage);                                            
-        svc.SetOnStop(OnStop);                                                  
-    // Service ni foreground qilish                                             
-    svc.SetInForeground("OCR Service", "JSON monitoring active");               
-    // Service ni ishga tushirish                                                  
-    // Telefon restart bo'lsa ham ishlasin                                          
-    app.SetAutoBoot("Service");                                                 
+    // Service bilan bog'lanish
+        svc = app.CreateService("this", "this", OnServiceReady);
+        svc.SetOnMessage(OnServiceMessage);
+    
+        // Service ni foreground qilish
+        svc.SetInForeground("OCR Service", "JSON monitoring active");
+    
+        // Telefon restart bo'lsa ham ishlasin
+        app.SetAutoBoot("Service");                                              
     
     app.ShowPopup("Service ishga tushdi");
 }

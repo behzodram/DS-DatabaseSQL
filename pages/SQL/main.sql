@@ -11,4 +11,4 @@ UPDATE users SET role = ? WHERE phone = ?;
 INSERT INTO loads (raw_text, from_loc, to_loc, vehicle_type, owner_phone, exp_at) VALUES (?,?,?,?,?,?);
 
 -- INSERT_Deal_LoadID_DRWPhone_ShipPhone_STATUS_:
-INSERT INTO deals (load_id, driver_phone, shipper_phone, status) VALUES (?,?,?,?);
+INSERT INTO deals (driver_phone, shipper_phone, status) VALUES (?,?,?);

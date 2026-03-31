@@ -1,3 +1,4 @@
+v 1.1.6 => main: raqam yagona +998 removed formatda db ga kiritishga tayyorlanmoqda, pages.js tuzatildi, service.js raqamni normallab yuboradi faqat index.html da deal va load data add error bor format bo'yicha. Claude code yangilash so'ramoqda
 v 1.1.5 => main: Yangi Servive.js added Number[0] aniqlanadi, index ning pages.js ga service funksiyalari added, faqat biometrik va service uchun chaqirilgan 2ta interval debuggingga biroz xalal berishi mumkin.
 v 1.1.4 => main: LoadTable js dan ShowRunResult Removed
 v 1.1.3 => main: 1 Error (bio dependant) 3 lines of code add, Success

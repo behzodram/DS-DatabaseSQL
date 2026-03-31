@@ -26,7 +26,7 @@ function CheckFile() {
         // if( number )
         //     app.ShowPopup( number[0] )
         
-        app.SendMessage( number[0] )
+        app.SendMessage( NormalizePhone( number[0] ) )
         
         // rasmni delete qilish
         if(obj.file && app.FileExists(obj.file))
@@ -48,4 +48,17 @@ function CheckFile() {
 
 function OnStop() {
     app.SetInBackground();
+}
+
+function NormalizePhone(number) {
+    // stringga aylantiramiz
+    number = number.toString().trim();
+
+    // agar +998 bilan boshlansa olib tashlaymiz
+    if(number.startsWith("+998")) {
+        return number.substring(4);
+    }
+
+    // aks holda o'zini qaytaradi
+    return number;
 }
