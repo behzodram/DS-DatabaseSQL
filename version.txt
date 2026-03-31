@@ -1,3 +1,4 @@
+v 1.1.4 => main: LoadTable js dan ShowRunResult Removed
 v 1.1.3 => main: 1 Error (bio dependant) 3 lines of code add, Success
 v 1.1.2 => main: LoadTable js dan RunQuery func removed, removed all btn from main.js code 1 change save qilinmabdi
 v 1.1.1 => main: LoadTable js dan RunQuery func removed, removed all btn from main.js code

@@ -201,33 +201,6 @@ function CreateTable(tableName) {
     });
 }
 
-function ShowRunResult(key, sql, cols, rows) {
-    var html = BuildHtmlHead();
-    html += "<h3>[ " + key + " ]</h3>";
-    html += "<div style='color:#aaa;font-size:11px;padding:4px 2px 8px;word-break:break-all'>" + sql + "</div>";
-
-    if (rows === null) {
-        html += "<div class='empty' style='color:#4caf50;padding:16px'>✓ Muvaffaqiyatli bajarildi</div>";
-    } else if (rows.length === 0) {
-        html += "<div class='empty'>— natija yo'q —</div>";
-    } else {
-        html += "<table><thead><tr>";
-        for (var c = 0; c < cols.length; c++) html += "<th>" + cols[c] + "</th>";
-        html += "</tr></thead><tbody>";
-        for (var i = 0; i < rows.length; i++) {
-            html += "<tr>";
-            for (var j = 0; j < cols.length; j++) {
-                html += "<td>" + FormatCell(cols[j], rows[i][cols[j]]) + "</td>";
-            }
-            html += "</tr>";
-        }
-        html += "</tbody></table>";
-        html += "<div class='footer'>" + rows.length + " ta natija</div>";
-    }
-    html += "</body></html>";
-    web.LoadHtml(html);
-}
-
 // ---------- HELPERS ----------
 function BuildHtmlHead() {
     return "<!DOCTYPE html><html><head><meta name='viewport' content='width=device-width,initial-scale=1'>"
