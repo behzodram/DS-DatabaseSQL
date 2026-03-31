@@ -92,13 +92,17 @@ function SetStatus(msg) {
 
 
 function initBIO() {
-    setInterval( bio.BeginAuth( bio_OnAuth ) , 1000 )
+    setInterval( calIntervalBIO , 1000 )
 
     bio = app.CreateBiometric()
     if(!bio.IsHardwareDetected())
         app.Quit( "Your device not have fingerprint hardware.", "Sorry");
     if(!bio.HasEnrolledFingerprints())
         app.Quit( "Please, first enroll your finger on biometric/security settings on your device.", "Fingerprint not enrolled" )
+}
+
+function calIntervalBIO() {
+    bio.BeginAuth( bio_OnAuth )
 }
 
 function bio_OnAuth(type, message) {
