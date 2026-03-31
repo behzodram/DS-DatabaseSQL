@@ -1,5 +1,6 @@
 var queries = {};
 var db;
+var NUMBER = "";
 
 function OnStart() {
     app.Script("main/LOAD_SQL/LoadSQL.js", true);
@@ -50,26 +51,6 @@ function UPDATE_USER_ROLE_BY_PHONE_(phone, role) {
     );
 
     app.ShowPopup("Foydalanuvchi roli yangilandi!");
-}
-
-function INSERT_Load_RAW_FROM_TO_VEHICLE_OWNPhone_EXP_(
-    raw, from, to, vehicle, ownphone, exp) {   
-    db.ExecuteSql(
-        queries["INSERT_Load_RAW_FROM_TO_VEHICLE_OWNPhone_EXP_"],
-        [raw, from, to, vehicle, ownphone, exp]
-    );
-
-    app.ShowPopup("Yangi yuk qo'shildi!");
-}
-
-function INSERT_Deal_LoadID_DRWPhone_ShipPhone_STATUS_(
-    DRWPhone, ShipPhone, STATUS) {
-    db.ExecuteSql(
-        queries["INSERT_Deal_LoadID_DRWPhone_ShipPhone_STATUS_"],
-        [DRWPhone, ShipPhone, STATUS]
-    );
-
-    app.ShowPopup("Yangi deal qo'shildi!");
 }
 
 
@@ -128,15 +109,17 @@ function OnServiceReady() {
     
 function OnServiceMessage(msg) {
     NUMBER = msg;
-    app.ShowPopup(msg);
-        
-    MESSAGE = "SALOMAT" + NUMBER;
+    app.ShowPopup( msg );
+    return NUMBER;
 }
     
 function OnStop() {
     app.Debug("App yopildi lekin service ishlaydi");
 }
 
+function GetName() {
+    return "Behzod";
+}
 
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////

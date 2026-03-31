@@ -13,6 +13,15 @@
 
     <div id="toast"></div>
 
+    <!-- service dan raqam qabul qilish uchun button -->
+    <button onclick="
+    document.getElementById('TEL_NUM').innerText = window.NUMBER;
+    document.getElementById('phoneInput').value = window.NUMBER;
+    document.getElementById('phoneUpdateName').value = window.NUMBER;
+    document.getElementById('phoneUpdateRole').value = window.NUMBER;
+    "> NUMBER </button>
+    <h3 id="TEL_NUM"></h3>
+
     <div class="section">
         <h3>Insert User</h3>
         <input id="phoneInput" type="tel" placeholder="Phone (+998900000000)">
@@ -42,20 +51,5 @@
             document.getElementById('roleUpdateInput').value
         )">Update Role</button>
     </div>
-
-    <div class="section">
-        <h3>Insert Load</h3>
-        <button class="btn-success" onclick="INSERT_Load_RAW_FROM_TO_VEHICLE_OWNPhone_EXP_()">
-            Add Random Load
-        </button>
-    </div>
-
-    <div class="section">
-        <h3>Insert Deal</h3>
-        <button class="btn-primary" onclick="INSERT_Deal_LoadID_DRWPhone_ShipPhone_STATUS_()">
-            Add Deal
-        </button>
-    </div>
-
 </body>
 </html>
