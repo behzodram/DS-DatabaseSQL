@@ -1,3 +1,4 @@
+v 1.1.0 => main: Barcha DS buttonlar biometrik bilan almashtirildi
 v 1.0.9 => main: Queries button Removed, Tables UI new -> see, Drop, Create, Table
 v 1.0.8 => main: ReadME.md tree yangilandi (ko'p fayllar qayta tartiblandi), LoadSQL.js v1.0.7 izoh yozildi, pages yangi folder qo'shildi, index.html uchun pages.js bor va undagi DS function lar index.html ichida foydalaniladi.
 v 1.0.7 => main: Inserting data to Tables is form index.html with the helf of DS functions
