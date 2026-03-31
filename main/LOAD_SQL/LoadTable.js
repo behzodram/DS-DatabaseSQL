@@ -201,41 +201,6 @@ function CreateTable(tableName) {
     });
 }
 
-// ---------- RUN QUERY ----------
-// function RunQuery(key) {
-//     var sql = queries[key];
-//     if (!sql) { SetStatus("Query topilmadi: " + key); return; }
-
-//     var sqlUp = sql.trim().toUpperCase();
-
-//     // SELECT → natijani ko'rsat
-//     if (sqlUp.indexOf("SELECT") === 0) {
-//         SetStatus("SELECT ishga tushdi: " + key);
-//         db.ExecuteSql(sql, [], function(results) {
-//             if (results.rows.length === 0) {
-//                 ShowRunResult(key, sql, [], []);
-//                 return;
-//             }
-//             var firstRow = results.rows.item(0);
-//             var cols = [];
-//             for (var c in firstRow) {
-//                 if (firstRow.hasOwnProperty(c)) cols.push(c);
-//             }
-//             var rows = [];
-//             for (var i = 0; i < results.rows.length; i++) {
-//                 rows.push(results.rows.item(i));
-//             }
-//             ShowRunResult(key, sql, cols, rows);
-//         });
-//     } else {
-//         // CREATE, DROP, INSERT, PRAGMA va boshqalar
-//         db.ExecuteSql(sql, [], function() {
-//             SetStatus("OK: " + key);
-//             ShowRunResult(key, sql, [], null);
-//         });
-//     }
-// }
-
 function ShowRunResult(key, sql, cols, rows) {
     var html = BuildHtmlHead();
     html += "<h3>[ " + key + " ]</h3>";

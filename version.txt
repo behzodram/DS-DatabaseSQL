@@ -1,3 +1,4 @@
+v 1.1.2 => main: LoadTable js dan RunQuery func removed, removed all btn from main.js code 1 change save qilinmabdi
 v 1.1.1 => main: LoadTable js dan RunQuery func removed, removed all btn from main.js code
 v 1.1.0 => main: Barcha DS buttonlar biometrik bilan almashtirildi
 v 1.0.9 => main: Queries button Removed, Tables UI new -> see, Drop, Create, Table
