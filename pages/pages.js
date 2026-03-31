@@ -5,10 +5,11 @@ function OnStart() {
     app.Script("main/LOAD_SQL/LoadSQL.js", true);
 
     InitDB();
-
-    app.ShowPopup("SQL funksiyalari yuklandi!");
+    
+    initService();
 }
 
+///////////////////////////////////////////////////////////////////////////////////
 function InitDB() {
     db = app.OpenDatabase("MyData");
 
@@ -21,7 +22,7 @@ function InitDB() {
 
     LoadSQLFile(hasfile, content, function() {  });
 
-    app.ShowPopup("Database initialized!");
+    app.ShowPopup("SQL funksiyalari yuklandi!");
 }
 
 function INSERT_USER_PHONE_ROLE_(phone, role) {
@@ -72,3 +73,72 @@ function INSERT_Deal_LoadID_DRWPhone_ShipPhone_STATUS_() {
 
     app.ShowPopup("Yangi deal qo'shildi!");
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                          ///////////////////////////////                                           
+                         // ==== SERVICE START =====  //                                            
+                        /////////////////////////////// 
+
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+
+    
+function initService() {                                                        
+      ///////////////////////////////                                           
+     // ===== SERVICE TIME =====  //                                            
+    ///////////////////////////////                                             
+
+    // Service bilan bog'lanish                                                 
+    svc = app.CreateService("this", "this", OnServiceReady);                       
+    svc.SetOnMessage(OnServiceMessage);                                            
+        svc.SetOnStop(OnStop);                                                  
+    // Service ni foreground qilish                                             
+    svc.SetInForeground("OCR Service", "JSON monitoring active");               
+    // Service ni ishga tushirish                                                  
+    // Telefon restart bo'lsa ham ishlasin                                          
+    app.SetAutoBoot("Service");                                                 
+    
+    app.ShowPopup("Service ishga tushdi");
+}
+
+function OnServiceReady() {
+    app.ShowPopup("Service tayyor");
+}
+    
+function OnServiceMessage(msg) {
+    NUMBER = msg;
+    app.ShowPopup(msg);
+        
+    MESSAGE = "SALOMAT" + NUMBER;
+}
+    
+function OnStop() {
+    app.Debug("App yopildi lekin service ishlaydi");
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
