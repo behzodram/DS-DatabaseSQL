@@ -1,40 +1,46 @@
+var isTableView = false;
 var queries = {};
 var db;
-var currentTable = "users";
-var isTableView = false;
-
-app.LoadPlugin( "Biometric" )
 
 function OnStart() {
     app.SetOrientation("portrait");
 
-    initBIO();
-    // --- Asosiy layout ---
-    layMain = app.CreateLayout("linear", "VCenter,FillXY");
+    // ── Asosiy layout (Vertical) ────────────────────────────────
+    layMain = app.CreateLayout("Linear", "Vertical,FillXY");
 
-    // --- App WebView (index.html) ---
-    webApp = app.CreateWebView(1, 1);
-    // webApp.SetBackColor("#1e1e1e");
+    //  Yuqori qism: content (0.93) + button (0.07), balandlik 0.94
+    layTop = app.CreateLayout("Linear", "Horizontal,FillX", 1, 0.94);
+
+    // 1. App WebView
+    webApp = app.CreateWebView(0.93, 1);
     webApp.SetOnConsole(function(msg) {
-        if (msg && msg.indexOf("DS_MSG:") === 0) {
+        if (msg && msg.indexOf("DS_MSG:") === 0)
             OnAppMsg(msg.replace("DS_MSG:", ""));
-        }
     });
-    layMain.AddChild(webApp);
+    layTop.AddChild(webApp);
 
-    // --- Table WebView ---
-    webTable = app.CreateWebView(1, 0.82);
+    // 2. Table WebView (boshlangʻichda yashirin)
+    webTable = app.CreateWebView(0.93, 1);
     webTable.SetBackColor("#1e1e1e");
     webTable.SetOnConsole(function(msg) {
-        if (msg && msg.indexOf("DS_MSG:") === 0) {
+        if (msg && msg.indexOf("DS_MSG:") === 0)
             OnWebMsg(msg.replace("DS_MSG:", ""));
-        }
     });
     webTable.SetVisibility("Gone");
-    layMain.AddChild(webTable);
+    layTop.AddChild(webTable);
 
-    // --- Status (faqat table view uchun) ---
-    txtStatus = app.CreateText("", 0.95, 0.06);
+    // 3. Toggle bar — har doim ko'rinadi
+    btnToggle = app.CreateButton("⋮", 0.07, 1);
+    btnToggle.SetStyle("#161616", "#1e1e1e", 0, "#2a2a2a", 1, 0);
+    btnToggle.SetTextColor("#555555");
+    btnToggle.SetTextSize(22);
+    btnToggle.SetOnTouch(ToggleView);
+    layTop.AddChild(btnToggle);
+
+    layMain.AddChild(layTop);
+
+    // Quyi status satri (faqat table view uchun), balandlik 0.06
+    txtStatus = app.CreateText("", 1, 0.06);
     txtStatus.SetTextSize(11);
     txtStatus.SetTextColor("#888888");
     txtStatus.SetVisibility("Gone");
@@ -42,12 +48,11 @@ function OnStart() {
 
     app.AddLayout(layMain);
 
+    // ── SQL yuklash ─────────────────────────────────────────────
     app.Script("main/LOAD_SQL/LoadSQL.js", true);
     app.Script("main/LOAD_SQL/LoadTable.js", true);
-    // app.Script("LoadSQL.js", true);
-    // app.Script("LoadTable.js", true);
 
-    let path = "main/SQL/Queries.sql";
+    let path    = "main/SQL/Queries.sql";
     let content = app.ReadFile(path);
     let hasfile = app.FileExists(path);
 
@@ -63,13 +68,19 @@ function OnStart() {
     });
 }
 
-// --- View switching ---
+// ── View switching ──────────────────────────────────────────────
+function ToggleView() {
+    if (isTableView) SwitchToAppView();
+    else             SwitchToTableView();
+}
 
 function SwitchToAppView() {
     isTableView = false;
     webApp.SetVisibility("Visible");
     webTable.SetVisibility("Gone");
     txtStatus.SetVisibility("Gone");
+    btnToggle.SetText("⋮");
+    web = webApp;
     webApp.LoadUrl("pages/index.html");
 }
 
@@ -78,42 +89,20 @@ function SwitchToTableView() {
     webApp.SetVisibility("Gone");
     webTable.SetVisibility("Visible");
     txtStatus.SetVisibility("Visible");
+    btnToggle.SetText("⋮");
     web = webTable;
+    ListAllTables();
 }
 
-// --- index.html dan kelgan xabarlar ---
+// ── Xabar handlerlari ───────────────────────────────────────────
 function OnAppMsg(msg) {
+    // keyingi bosqichda to'ldiriladi
+}
+
+function OnWebMsg(msg) {
     // keyingi bosqichda to'ldiriladi
 }
 
 function SetStatus(msg) {
     txtStatus.SetText("● " + msg);
-}
-
-
-function initBIO() {
-    setInterval( calIntervalBIO , 1000 )
-
-    bio = app.CreateBiometric()
-    if(!bio.IsHardwareDetected())
-        app.Quit( "Your device not have fingerprint hardware.", "Sorry");
-    if(!bio.HasEnrolledFingerprints())
-        app.Quit( "Please, first enroll your finger on biometric/security settings on your device.", "Fingerprint not enrolled" )
-}
-
-function calIntervalBIO() {
-    bio.BeginAuth( bio_OnAuth )
-}
-
-function bio_OnAuth(type, message) {
-    //   app.Alert( message, type )
-    if(type == "success") {
-        app.ShowPopup("Authentication successful!");
-        if (isTableView) {
-            SwitchToAppView();
-        } else {
-            SwitchToTableView();
-            ListAllTables();
-        }
-    }
 }

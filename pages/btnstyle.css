@@ -1,0 +1,61 @@
+/* Butun ekranni egallash */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    overflow: auto;
+    /* sahifa scroll qilsa bo‘lsin */
+}
+
+/* Asosiy konteyner */
+#main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 20px;
+    padding-bottom: 80px;
+    /* pastki buttonlar uchun joy */
+}
+
+h1 {
+    color: #333;
+    font-size: 32px;
+    text-align: center;
+}
+
+p {
+    font-size: 16px;
+    text-align: center;
+    color: #555;
+    margin: 0 20px;
+}
+
+/* Buttonlar pastda sticky/fixed */
+#buttons {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    /* buttonlar orasidagi bo‘shliq */
+    z-index: 1000;
+}
+
+#buttons button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#buttons button:hover {
+    background-color: #2980b9;
+}

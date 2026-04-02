@@ -6,7 +6,10 @@
     <title>SQL Control Panel</title>
     <script src="ds:/Sys/app.js"></script>
     <script src="pages.js"></script>
+    <script src="btnscript.js"></script>
+    
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="btnstyle.css">
 </head>
 
 <body onload="app.Start()">
@@ -50,6 +53,12 @@
             document.getElementById('phoneUpdateRole').value,
             document.getElementById('roleUpdateInput').value
         )">Update Role</button>
+    </div>
+    <!-- 3 button doim pastda -->
+    <div id="buttons">
+        <button onclick="ShowDialog('FABJ')">FABJ</button>
+        <button onclick="ShowDialog('XoQoN')">XoQoN</button>
+        <button onclick="ShowDialog('SuT')">SuT</button>
     </div>
 </body>
 </html>
