@@ -8,11 +8,11 @@ function ShowDialog(name) {
     else if (name === "SuT") data = "SAM,SUR,TOSH,SIRD";
 
     VIL_DIALOG = app.CreateListDialog(name, data);
-    VIL_DIALOG.SetOnTouch(dlg_OnTouch);
+    VIL_DIALOG.SetOnTouch(Viloyat_OnTouch);
     VIL_DIALOG.Show();
 }
 
-function dlg_OnTouch(item) {
+function Viloyat_OnTouch(item) {
     app.ShowPopup(item);
     return item;
 }

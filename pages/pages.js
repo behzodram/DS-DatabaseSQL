@@ -4,13 +4,18 @@ var db;
 function OnStart() {
     app.Script("main/LOAD_SQL/LoadSQL.js", true);
     // LoadSQLFile USED FUNCTION
+    // that function used inside InitDB function
+    InitDB();
 
     app.Script("pages/CacheLoad/CacheLoad.js", true);
     // AppendNumber LoadNumber_3 USED FUNCTIONS
-
     LoadNumber_3();
 
-    InitDB();
+    app.Script("pages/btnscript.js", true);
+    // ShowViloyat Viloyat_OnTouch USED FUNCTION
+    // is used in index.html file and here
+    // to select viloyat for usage SQL queries
+
     initService();
 }
 
