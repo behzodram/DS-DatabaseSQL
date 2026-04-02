@@ -31,15 +31,6 @@ var lastAppendTime = 0;  // millisekund
 
 // 3 raqamli register Cache yozadi oladi
 function AppendNumber(num_new) {
-    var now = Date.now(); // hozirgi vaqt
-
-    // ❌ 3 sekunddan kam bo'lsa chiqib ket
-    if(now - lastAppendTime < 3000) {
-        console.log("Cooldown: 3s ichida boshqa raqam qabul qilinmaydi");
-        return;
-    }
-
-    lastAppendTime = now; // append vaqtini saqlaymiz
 
     // 1️⃣ Normalize length   
     num_new = num_new.toString().padStart(fixlen_num, "0"); 
@@ -50,18 +41,36 @@ function AppendNumber(num_new) {
         existing = app.ReadFile(txt_file);
     }
 
-    // 3️⃣ Yangi raqamni qo‘shish
-    existing = num_new + existing; 
+    // 3️⃣ Avval mavjudligini tekshiramiz
+    if (existing.includes(num_new)) {
+        app.ShowPopup("Raqam mavjud");
+        return; // ❗ chiqib ketamiz (time update yo‘q)
+    }
 
-    // 4️⃣ Maksimal uzunlikni saqlash
+    let now = Date.now(); // hozirgi vaqt
+
+    // ❌ 3 sekunddan kam bo'lsa chiqib ket
+    if (now - lastAppendTime < 3000) {
+        console.log("Cooldown: 3s ichida boshqa raqam qabul qilinmaydi");
+        return;
+    }
+
+    // 4️⃣ Endi yangi raqam qo‘shamiz (faqat yangi bo‘lsa)
+    existing = num_new + existing;
+
+    // 5️⃣ Maksimal uzunlikni saqlash
     var max_len = fixlen_num * max_numbers;
-    if(existing.length > max_len) {
+    if (existing.length > max_len) {
         existing = existing.substring(0, max_len);
     }
 
-    // 5️⃣ Faylga yozish
+    // 6️⃣ Faylga yozish
     app.WriteFile(txt_file, existing);
 
+    // 7️⃣ Endi vaqtni yangilaymiz (faqat yangi qo‘shilganda)
+    lastAppendTime = now;
+
+    // 8️⃣ UI update
     window.phone3[0] = num_new;
     UpdateUI();
 }
@@ -72,7 +81,7 @@ function ReadNumbers() {
     if(!app.FileExists(txt_file)) return [];
 
     var data = app.ReadFile(txt_file);
-    app.ShowPopup( "Num Len" + data.length )
+    // app.ShowPopup( "Num Len" + data.length )
 
     var nums = [];
 

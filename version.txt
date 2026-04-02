@@ -1,3 +1,4 @@
+v 1.2.0 => main: ../CacheLoad.js -> AppendNumber function updated => Endi yangi raqam kelganda faylda mavjud bo'lsa, phone3.txt fayl yangilanmaydi
 v 1.1.9 => main: pages.js dan Cache/phone3.txt depend funcs va uning UI (for index) dunc lari CacheLoad.js ga moved
 v 1.1.8 => main: Cache/phone3.txt da 3ta raqam cacheda saqlanadi, har safar yangi raqam screen shot qilinganda otmechatka 2 marta index pynaga chaqirilsa, 3ta raqam ham to'g'ri ko'rsatiladi, raqamlarni yangisi eskilarini shift qiladi va max number to save 3
 v 1.1.7 => main: main.sql & pages.js moved some part to then.sql & then.js, NUMBER button add into html that recieve NUMBER from Service.js & All inputs on which has Number recieves NUMBER from Service.js after Number button onclick
