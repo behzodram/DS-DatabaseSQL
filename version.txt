@@ -1,3 +1,4 @@
+v 1.2.7 => main: ARCH Folder qo'shildi Readme.md dan ARCH move to ARCH folder qilindi
 v 1.2.6 => main: main.sql tahrirlandi -> user.id autoinc +1 tuzatildi (avval +x edi) INSERT OR IGNORE INTO -> INSERT INTO ga o'zgardi
 v 1.2.5 => main: SQL_Callback.js added for pages.js and then.js or for index.html
 v 1.2.4 => main: DCIM Last_Ring.json folder uchun Permission.js qo'shildi, Android/Data/<my.app.name> dan phone3.txt bilan MyData.db joy oldi. CacheLoad.js ga init_cache func qo'shildi -> DB + Phone3.txt uchun. Servis bazi popuplar o'chirildi (Boshqa debug uchun)
