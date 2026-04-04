@@ -23,6 +23,10 @@ function OnStart() {
     // to select viloyat for usage SQL queries
 
     initService();
+
+    app.Script("pages/SQL_callback/SQL_Callback.js", true);
+    // onUpdateSuccess onUpdateError USED FUNCTIONS
+    // that functions used inside UPDATE_USER_NAME_BY_PHONE_ function
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -44,32 +48,23 @@ function InitDB() {
 function INSERT_USER_PHONE_ROLE_(phone, role) {
     db.ExecuteSql(
         queries["INSERT_USER_PHONE_ROLE_"],
-        [phone, role]
+        [phone, role], onUpdateSuccess, onUpdateError
     );
-
-    app.ShowPopup("Yangi foydalanuvchi qo'shildi!");
 }
 
 function UPDATE_USER_NAME_BY_PHONE_(phone, name) {
     db.ExecuteSql(
         queries["UPDATE_USER_NAME_BY_PHONE_"],
-        [name, phone]
+        [name, phone], onUpdateSuccess, onUpdateError
     );
-
-    app.ShowPopup("Foydalanuvchi nomi yangilandi!");
 }
 
 function UPDATE_USER_ROLE_BY_PHONE_(phone, role) {
     db.ExecuteSql(
         queries["UPDATE_USER_ROLE_BY_PHONE_"],
-        [role, phone]
+        [role, phone], onUpdateSuccess, onUpdateError
     );
-
-    app.ShowPopup("Foydalanuvchi roli yangilandi!");
 }
-
-
-
 
 
 
