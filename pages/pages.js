@@ -12,7 +12,9 @@ function OnStart() {
     InitDB();
 
     app.Script("pages/CacheLoad/CacheLoad.js", true);
-    // AppendNumber LoadNumber_3 USED FUNCTIONS
+    // AppendNumber LoadNumber_3 init_Cache USED FUNCTIONS
+    init_Cache();
+
     LoadNumber_3();
 
     app.Script("pages/btnscript.js", true);
@@ -36,7 +38,7 @@ function InitDB() {
 
     LoadSQLFile(hasfile, content, function() {  });
 
-    app.ShowPopup("SQL funksiyalari yuklandi!");
+    // app.ShowPopup("SQL funksiyalari yuklandi!");
 }
 
 function INSERT_USER_PHONE_ROLE_(phone, role) {
@@ -113,11 +115,11 @@ function initService() {
         // Telefon restart bo'lsa ham ishlasin
         app.SetAutoBoot("Service");                                              
     
-    app.ShowPopup("Service ishga tushdi");
+    // app.ShowPopup("Service ishga tushdi");
 }
 
 function OnServiceReady() {
-    app.ShowPopup("Service tayyor");
+    // app.ShowPopup("Service tayyor");
 }
 
 function OnServiceMessage(number) {

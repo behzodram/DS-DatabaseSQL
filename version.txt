@@ -1,3 +1,4 @@
+v 1.2.4 => main: DCIM Last_Ring.json folder uchun Permission.js qo'shildi, Android/Data/<my.app.name> dan phone3.txt bilan MyData.db joy oldi. CacheLoad.js ga init_cache func qo'shildi -> DB + Phone3.txt uchun. Servis bazi popuplar o'chirildi (Boshqa debug uchun)
 v 1.2.3 => main: Now DB is located on Android/data/<package-name> folder. New EXEC_SQL folder created. showViloyat func name from btncsript.js updated at ALL files, AppendNumber recieve only fixed len (for defence of Termux OCR error parse)
 v 1.2.2 => main: btnscript.js funksiyalari pages.js orqali chaqirildi va index.html endi pages.js orqali u funksiyalarni ishlatadi. Sababi keyinchalik SQL so'rovlar pages.js da bo'lishi kutilgan
 v 1.2.1 => main: pages/btnscript.js and btnstyle.css added, biometrik functionality moved to Action Bar styled Button, FABJ, XoQoN, SuT Viloyat selectorlar qo'shildi, Later will be Used for SQL Functions on pages.js

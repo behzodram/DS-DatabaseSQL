@@ -49,6 +49,11 @@ function OnStart() {
 
     app.AddLayout(layMain);
 
+    app.Script("DCIM_Perm/Permission.js", true);
+    // DCIM_Access USED FUNCTION
+    // that function used inside OnPermission function
+    DCIM_Access();
+
     // ── SQL yuklash ─────────────────────────────────────────────
     app.Script("main/LOAD_SQL/LoadSQL.js", true);
     app.Script("main/LOAD_SQL/LoadTable.js", true);

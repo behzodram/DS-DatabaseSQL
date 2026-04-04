@@ -1,4 +1,25 @@
-var phone3 = [], file = "demofile";
+////////////////////////////////////////////////////////////////////////////////
+var phone3 = [];
+var fixlen_num = 9;                  // har raqam uzunligi
+var max_numbers = 3;                 // maksimal raqamlar soni
+var lastAppendTime = 0;              // cooldown tracking
+
+var txt_file = "";  // fayl manzili
+
+//////////////////////////////////////////////////////////////
+function init_Cache() {
+    AndroidPath = app.GetPath();
+    db = app.OpenDatabase( AndroidPath + "/MyData.db" );
+    
+    ////////////////////////////////////////////////////    
+    if( !app.FileExists(AndroidPath + "/phone3.txt" ) )
+        app.WriteFile(AndroidPath + "/phone3.txt", "");
+    
+    var CacheAndroid = app.GetPath() + "/phone3.txt";
+    txt_file = CacheAndroid;
+    return db;
+    // app.ShowPopup( "DEBUG: " + txt_file )
+}
 
 // Used in pages/pages.js -> inside OnStart
 function LoadNumber_3() {
@@ -20,14 +41,6 @@ function UpdateUI() {
     document.getElementById('phoneUpdateName').value = window.phone3[1];
     document.getElementById('phoneUpdateRole').value = window.phone3[2];
 }
-
-//////////////////////////////////////////////////////////////////////
-var txt_file = "Cache/phone3.txt";  // fayl manzili
-var fixlen_num = 9;                  // har raqam uzunligi
-var max_numbers = 3;                 // maksimal raqamlar soni
-
-// cooldown tracking
-var lastAppendTime = 0;  // millisekund
 
 // 3 raqamli register Cache yozadi oladi
 function AppendNumber(num_new) {
