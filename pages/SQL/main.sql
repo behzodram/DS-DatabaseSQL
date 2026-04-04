@@ -1,5 +1,5 @@
 -- INSERT_USER_PHONE_ROLE_:
-INSERT OR IGNORE INTO users (phone, role) VALUES (?, ?);
+INSERT INTO users (phone, role) VALUES (?, ?);
 
 -- UPDATE_USER_NAME_BY_PHONE_:
 UPDATE users SET name = ? WHERE phone = ?;
