@@ -1,4 +1,5 @@
 var isTableView = false;
+var AndroidPath;
 var queries = {};
 var db;
 
@@ -56,8 +57,11 @@ function OnStart() {
     let content = app.ReadFile(path);
     let hasfile = app.FileExists(path);
 
+    AndroidPath = app.GetPath();
+    // androidpth bu /storage/emulated/0/Android/data/<package_name>/files
+    
     LoadSQLFile(hasfile, content, function() {
-        db = app.OpenDatabase("MyData");
+        db = app.OpenDatabase( AndroidPath + "/MyData.db" );
         db.ExecuteSql(queries["CRT_USERS"]);
         db.ExecuteSql(queries["CRT_LOADS"]);
         db.ExecuteSql(queries["CRT_DEALS"]);

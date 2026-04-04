@@ -1,7 +1,7 @@
 // --- Drawer Dialogs ---
 let VIL_DIALOG;
 
-function ShowDialog(name) {
+function ShowViloyat(name) {
     let data = "";
     if (name === "FABJ") data = "FAR,AND,BUX,JIZ";
     else if (name === "XoQoN") data = "XOR,QASH,QORA,NAV";

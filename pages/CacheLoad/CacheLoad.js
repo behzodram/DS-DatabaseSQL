@@ -35,6 +35,11 @@ function AppendNumber(num_new) {
     // 1️⃣ Normalize length   
     num_new = num_new.toString().padStart(fixlen_num, "0"); 
 
+    if (num_new.length !== fixlen_num) {
+        app.ShowPopup("Raqam uzunligi " + fixlen_num + " bo'lishi kerak");
+        return;
+    }
+
     // 2️⃣ Faylni o‘qish
     var existing = "";
     if(app.FileExists(txt_file)) {
@@ -43,7 +48,7 @@ function AppendNumber(num_new) {
 
     // 3️⃣ Avval mavjudligini tekshiramiz
     if (existing.includes(num_new)) {
-        app.ShowPopup("Raqam mavjud");
+        // app.ShowPopup("Raqam mavjud");
         return; // ❗ chiqib ketamiz (time update yo‘q)
     }
 

@@ -1,7 +1,11 @@
+var AndroidPath;
 var queries = {};
 var db;
 
 function OnStart() {
+    AndroidPath = app.GetPath();
+    // androidpth bu /storage/emulated/0/Android/data/<package_name>/files
+
     app.Script("main/LOAD_SQL/LoadSQL.js", true);
     // LoadSQLFile USED FUNCTION
     // that function used inside InitDB function
@@ -21,7 +25,7 @@ function OnStart() {
 
 ///////////////////////////////////////////////////////////////////////////////////
 function InitDB() {
-    db = app.OpenDatabase("MyData");
+    db = app.OpenDatabase( AndroidPath + "/MyData.db" );
 
     let path = "pages/SQL/main.sql";
     let content = app.ReadFile(path); 
