@@ -1,4 +1,4 @@
-v 1.2.8 => main: index.html, btnscript.js, btnstyle.css edit -> shide/show, clipboard
+v 1.2.8 => main: New Loc3, Cont3 hide/show added, btn files removed
 v 1.2.7 => main: ARCH Folder qo'shildi Readme.md dan ARCH move to ARCH folder qilindi
 v 1.2.6 => main: main.sql tahrirlandi -> user.id autoinc +1 tuzatildi (avval +x edi) INSERT OR IGNORE INTO -> INSERT INTO ga o'zgardi
 v 1.2.5 => main: SQL_Callback.js added for pages.js and then.js or for index.html

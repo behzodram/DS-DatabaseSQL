@@ -1,37 +1,31 @@
 /* style.css — pages UI (Dark Mode) */
 
 :root {
-    /* Dark Mode Colors */
-    --bg-primary: #1a1d23;
-    --bg-secondary: #242833;
-    --bg-tertiary: #2d3139;
-    --text-primary: #e0e0e6;
-    --text-secondary: #a8adb5;
-    --border-color: #3a3f4c;
-    --focus-color: #5a8fbf;
+    --bg-primary:    #1a1d23;
+    --bg-secondary:  #242833;
+    --bg-tertiary:   #2d3139;
+    --text-primary:  #e0e0e6;
+    --text-secondary:#a8adb5;
+    --border-color:  #3a3f4c;
+    --focus-color:   #5a8fbf;
 
-    /* Button Colors */
-    --btn-primary: #5a8fbf;
-    --btn-success: #4a9b6f;
-    --btn-warning: #b89c5f;
-    --btn-danger: #a85252;
+    --btn-primary:  #5a8fbf;
+    --btn-success:  #4a9b6f;
+    --btn-warning:  #b89c5f;
+    --btn-danger:   #a85252;
 
-    /* Hover Effects */
-    --hover-opacity: 0.9;
+    --hover-opacity:  0.9;
     --active-opacity: 0.75;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
     background-color: var(--bg-primary);
     color: var(--text-primary);
     padding: 16px;
+    padding-bottom: 110px;
     transition: background-color 0.3s, color 0.3s;
 }
 
@@ -41,120 +35,165 @@ body {
     border-radius: 12px;
     padding: 16px;
     margin-bottom: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
     border: 1px solid var(--border-color);
     transition: box-shadow 0.3s, background-color 0.3s;
 }
-
-.section:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-}
-
+.section:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
 .section h3 {
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 13px; font-weight: 600;
     color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
+    text-transform: uppercase; letter-spacing: 0.8px;
     margin-bottom: 12px;
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 8px;
 }
 
 /* ---------- Input ---------- */
-input[type="text"],
-input[type="tel"] {
-    display: block;
-    width: 100%;
-    padding: 10px 12px;
-    margin-bottom: 10px;
+input[type="text"], input[type="tel"] {
+    display: block; width: 100%;
+    padding: 10px 12px; margin-bottom: 10px;
     font-size: 15px;
     border: 1.5px solid var(--border-color);
     border-radius: 8px;
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
+    background: var(--bg-tertiary); color: var(--text-primary);
     outline: none;
     transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
 }
-
-input[type="text"]:hover,
-input[type="tel"]:hover {
-    border-color: #4a6f9f;
-    background: #343a45;
+input[type="text"]:hover, input[type="tel"]:hover { border-color: #4a6f9f; background: #343a45; }
+input[type="text"]:focus, input[type="tel"]:focus {
+    border-color: var(--focus-color); background: #343a45;
+    box-shadow: 0 0 0 3px rgba(90,143,191,0.15);
 }
+input::placeholder { color: #6a7077; }
 
-input[type="text"]:focus,
-input[type="tel"]:focus {
-    border-color: var(--focus-color);
-    background: #343a45;
-    box-shadow: 0 0 0 3px rgba(90, 143, 191, 0.15);
-}
-
-input[type="text"]::placeholder,
-input[type="tel"]::placeholder {
-    color: #6a7077;
-}
-
-/* ---------- Button ---------- */
+/* ---------- Global Button ---------- */
 button {
-    display: block;
-    width: 100%;
-    padding: 11px;
+    display: block; width: 100%;
+    padding: 11px; font-size: 15px; font-weight: 600;
+    border: none; border-radius: 8px; cursor: pointer;
+    transition: background 0.2s, opacity 0.2s, transform 0.1s, box-shadow 0.2s;
+}
+button:hover  { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+button:active { opacity: var(--active-opacity); transform: translateY(0); }
+
+.btn-primary { background: var(--btn-primary); color: #fff; }
+.btn-primary:hover { background: #6ba0cf; }
+.btn-success { background: var(--btn-success); color: #fff; }
+.btn-success:hover { background: #5ab07f; }
+.btn-warning { background: var(--btn-warning); color: #e0e0e6; }
+.btn-warning:hover { background: #c9ad75; }
+.btn-danger  { background: var(--btn-danger);  color: #fff; }
+.btn-danger:hover  { background: #b86262; }
+
+/* ================================================================
+   BOTTOM PANEL  — 4-ustunli grid
+   col 1: 46px (icon)   col 2-4: teng 1fr (buttonlar)
+   Row 1: contact3      Row 2: location3
+   ================================================================ */
+#bottom-panel {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    display: grid;
+    grid-template-columns: 46px repeat(3, 1fr);
+    row-gap: 8px;
+    column-gap: 8px;
+    align-items: center;
+    z-index: 1000;
+    overflow: hidden; /* <-- buttonlar chapga siljiyotganda clip qiladi */
+}
+
+/* Wrapper divlar grid layoutdan "yo'qoladi"; farzandlari to'g'ridan gridga tushadi */
+#contact3-btns,
+#loc3-btns {
+    display: contents;
+}
+
+/* ── Toggle ikonlari ── */
+.row-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;               /* siljib kelayotgan buttonlar ustida turadi */
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,.5));
+    transition: transform .15s, filter .22s;
+    user-select: none;
+    -webkit-user-select: none;
+    justify-self: start;
+    align-self: center;
+}
+.row-icon:active { transform: scale(.88); }
+.row-icon.panel-collapsed {
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,.5)) brightness(.55);
+}
+
+/* ── contact3 buttonlari (yashil / sariq / qizil) ── */
+.c3-btn {
+    height: 36px;
+    padding: 0;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: 1.5px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background 0.2s, opacity 0.2s, transform 0.1s, box-shadow 0.2s;
+    width: 100%;
+    box-shadow: 0 2px 6px rgba(0,0,0,.35);
 }
+.c3-btn:hover  { filter: brightness(1.15); transform: translateY(-1px); }
+.c3-btn:active { filter: brightness(.85); }
 
-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-}
+.c3-green  { background: var(--btn-success); color: #fff; }
+.c3-yellow { background: var(--btn-warning); color: #fff; }
+.c3-red    { background: var(--btn-danger);  color: #fff; }
 
-button:active {
-    opacity: var(--active-opacity);
-    transform: translateY(0);
-}
-
-.btn-primary {
+/* ── location3 buttonlari ── */
+.loc3-btn {
+    height: 36px;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 600;
     background: var(--btn-primary);
     color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-shadow: 0 2px 6px rgba(0,0,0,.35);
+}
+.loc3-btn:hover  { background: #6ba0cf; transform: translateY(-1px); }
+.loc3-btn:active { opacity: .75; transform: none; }
+
+/* ── Animatsiya keyframe-lari ──
+   btnSlideOut : mavjud holatdan chapga/yo'q holga ketadi
+   btnSlideIn  : chap/yo'q holatdan mavjud holatga keladi
+   Ikkalasi ham "both" fill mode bilan ishlatiladi.
+   translateX(-300%) — o'z kengligi × 3, icon ortiga yetib boradi.
+   ──────────────────────────────────────────────────────────────── */
+@keyframes btnSlideOut {
+    to {
+        transform: translateX(-300%);
+        opacity: 0;
+    }
 }
 
-.btn-primary:hover {
-    background: #6ba0cf;
+@keyframes btnSlideIn {
+    from {
+        transform: translateX(-300%);
+        opacity: 0;
+    }
 }
 
-.btn-success {
-    background: var(--btn-success);
-    color: #fff;
-}
-
-.btn-success:hover {
-    background: #5ab07f;
-}
-
-.btn-warning {
-    background: var(--btn-warning);
-    color: #e0e0e6;
-}
-
-.btn-warning:hover {
-    background: #c9ad75;
-}
-
-.btn-danger {
-    background: var(--btn-danger);
-    color: #fff;
-}
-
-.btn-danger:hover {
-    background: #b86262;
-}
-
-/* ---------- Toast / Popup ---------- */
+/* ================================================================
+   TOAST
+   ================================================================ */
 #toast {
     display: none;
     position: fixed;
@@ -166,38 +205,30 @@ button:active {
     padding: 12px 24px;
     border-radius: 20px;
     font-size: 13px;
-    z-index: 999;
+    z-index: 1500;
     white-space: nowrap;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
     border: 1px solid var(--border-color);
     animation: slideIn 0.3s ease-out;
 }
 
 @keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-50%) translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-    }
+    from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0);    }
 }
 
-/* Scrollbar Dark Mode */
-::-webkit-scrollbar {
-    width: 8px;
-}
+/* ── Scrollbar ── */
+::-webkit-scrollbar       { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #4a4f5c; }
 
-::-webkit-scrollbar-track {
-    background: var(--bg-primary);
+/* ── #main ── */
+#main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
 }
-
-::-webkit-scrollbar-thumb {
-    background: var(--border-color);
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #4a4f5c;
-}
+h1 { color: #b0b8c8; font-size: 28px; text-align: center; margin-bottom: 8px; }
+p  { font-size: 16px; text-align: center; color: #555; margin: 0 20px 10px; }

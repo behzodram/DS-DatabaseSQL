@@ -17,7 +17,10 @@ function OnStart() {
 
     LoadNumber_3();
 
-    app.Script("pages/btnscript.js", true);
+    // app.Script("pages/btnscript.js", true);
+    // Bu fayl CacheLoad.js ga ko'chirildi, 
+    // chunki u yerda LoadNumber_3 va UpdateUI funksiyalari bor
+    
     // ShowViloyat Viloyat_OnTouch USED FUNCTION
     // is used in index.html file and here
     // to select viloyat for usage SQL queries

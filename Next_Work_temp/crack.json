@@ -1,0 +1,104 @@
+{
+  "+998906362704": {
+    "user_id": "tg_12345",
+    "loads": {
+      "010": {
+        "raw": "📍Toshkentdan Andijon ...",
+        "from": "Toshkent",
+        "to": "Andijon",
+        "exp_at": "2026-04-01",
+        "owner_phone": "+998906362704",
+        "poster_user_id": "tg_12345",
+        "forwarder_phone": null,
+        "completed": false,
+        "deal": null
+      },
+      "012": {
+        "raw": "📍 Andijon Xorazm ...",
+        "from": "Andijon",
+        "to": "Xorazm",
+        "exp_at": "2026-04-01",
+        "owner_phone": "+998906362704",
+        "poster_user_id": "tg_12345",
+        "forwarder_phone": null,
+        "completed": false,
+        "deal": null
+      },
+      "018": {
+        "raw": "📍 Namangandan Buxoroga ...",
+        "from": "Namangan",
+        "to": "Buxoro",
+        "exp_at": "2026-04-01",
+        "owner_phone": "+998906362704",
+        "poster_user_id": "tg_12345",
+        "forwarder_phone": null,
+        "completed": false,
+        "deal": null
+      },
+      "0059": {
+        "raw": "📍 Xorazm Samarqand ...",
+        "from": "Xorazm",
+        "to": "Samarqand",
+        "exp_at": "2026-04-01",
+        "owner_phone": "+998906362704",
+        "poster_user_id": "tg_12345",
+        "forwarder_phone": null,
+        "completed": false,
+        "deal": null
+      }
+    },
+    "drivers": {
+      "+998901111111": {
+        "name": "Alisher",
+        "from_region": "Toshkent",
+        "to_region": "Buxoro",
+        "interested_loads": [
+          "018"
+        ],
+        "load_details": {
+          "018": {
+            "price": "3 mln",
+            "chat": "Narxni tushirishni so‘radi"
+          }
+        }
+      },
+      "+998903333333": {
+        "name": "Bobur",
+        "from_region": "Andijon",
+        "to_region": "Xorazm",
+        "interested_loads": [],
+        "load_details": {}
+      }
+    },
+    "shippers": {
+      "+998902222222": {
+        "name": "Akmal",
+        "my_loads": [
+          "010",
+          "012"
+        ],
+        "drivers_notes": {
+          "+998901111111": {
+            "chat": "Driver bilan gaplashildi",
+            "conference": {
+              "status": "kelishdi",
+              "price": "2.8 mln"
+            }
+          }
+        }
+      }
+    },
+    "deals": {
+      "deal_001": {
+        "load_id": "010",
+        "driver_phone": "+998901111111",
+        "shipper_phone": "+998902222222",
+        "agreed_price": "2.8 mln",
+        "paid_to_driver": "2.6 mln",
+        "dispatcher_earning": "0.2 mln",
+        "payment_by_phone": "+998902222222",
+        "status": "completed"
+      }
+    }
+  }
+}
