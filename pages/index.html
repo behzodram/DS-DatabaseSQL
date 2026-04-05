@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,10 +59,49 @@
         )">Update Role</button>
     </div>
     <!-- 3 button doim pastda -->
-    <div id="buttons">
-        <button onclick="ShowViloyat('FABJ')">FABJ</button>
-        <button onclick="ShowViloyat('XoQoN')">XoQoN</button>
-        <button onclick="ShowViloyat('SuT')">SuT</button>
+        <h1>Welcome to My Project</h1>
+        <p>This is the index.html page displayed inside the drawer's webView.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sollicitudin, urna a fermentum sodales, massa nulla ultricies urna, et lacinia libero nisi sed lectus.</p>
+        <p>More content here to test scrolling...</p>
+
+        <h1>Welcome to My Project</h1>
+        <p>This is the index.html page displayed inside the drawer's webView.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sollicitudin, urna a fermentum sodales.</p>
+        <p>More content here to test scrolling...</p>
+
+        <h1>Welcome to My Project</h1>
+        <p>This is the index.html page displayed inside the drawer's webView.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nec diam et odio varius dictum.</p>
+        <p>More content here to test scrolling...</p>
+
+        <h1>Welcome to My Project</h1>
+        <p>This is the index.html page displayed inside the drawer's webView.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec lacus vitae nibh scelerisque porta.</p>
+        <p>More content here to test scrolling...</p>
     </div>
+
+    <!-- ═══════════ FIXED BOTTOM PANEL ═══════════ -->
+    <div id="bottom-panel">
+
+        <!-- Row 1: Coloured number buttons (green / yellow / red) -->
+        <div class="panel-row">
+            <button class="toggle-btn" id="numbers-toggle" onclick="toggleRow('numbers')">◀</button>
+            <div class="panel-buttons" id="numbers-buttons">
+                <button class="num-btn green"  onclick="copyNum('green')" >4567</button>
+                <button class="num-btn yellow" onclick="copyNum('yellow')">2233</button>
+                <button class="num-btn red"    onclick="copyNum('red')"   >4455</button>
+            </div>
+        </div>
+
+        <!-- Row 2: Viloyat buttons (FABJ / XoQoN / SuT) -->
+        <div class="panel-row">
+            <button class="toggle-btn" id="viloyat-toggle" onclick="toggleRow('viloyat')">◀</button>
+            <div class="panel-buttons" id="viloyat-buttons">
+                <button onclick="ShowViloyat('FABJ')">FABJ</button>
+                <button onclick="ShowViloyat('XoQoN')">XoQoN</button>
+                <button onclick="ShowViloyat('SuT')">SuT</button>
+            </div>
+        </div>
 </body>
+
 </html>
